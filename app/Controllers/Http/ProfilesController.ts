@@ -4,7 +4,7 @@ import Application from '@ioc:Adonis/Core/Application'
 
 
 export default class ProfilesController {
-    public async index({ view, params, auth }: HttpContextContract) {
+      public async index({ view, params, auth }: HttpContextContract) {
         const username = params.username
         const user = await User.findBy('username', username)
         if (!user) {
@@ -14,6 +14,7 @@ export default class ProfilesController {
         await user.preload('followings')
         await auth.user!.preload('followings')
         const followers = await user.followers()
+
         return view.render('profile', { user, followers })
     }
 
